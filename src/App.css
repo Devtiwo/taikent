@@ -2,7 +2,7 @@ header {
   background-image: url("/public/images/abstract.png");
   background-repeat: no-repeat;
   background-position: bottom;
-  background-size: contain;
+  background-size: 900px 400px;
 }
 
 @media only screen and (min-width: 992px) {
