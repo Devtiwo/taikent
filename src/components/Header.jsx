@@ -9,7 +9,7 @@ const Header = () => {
           <img src="/images/taikent.png" alt="logo" className="h-36"/>
         </div>
         <div className="my-auto"> 
-          <button type="button" className="p-2 outline-none transition ease-in duration-200 w-32 font-medium border-2 border-fuchsia-500 hover:text-white hover:bg-fuchsia-700 hover:border-none">Login</button>
+          <Link to="/login" className="py-2 px-12 outline-0 transition ease-in duration-200 font-medium border-2 border-fuchsia-500 hover:text-white hover:bg-fuchsia-700 hover:border-none">Login</Link>
         </div>
       </nav>
       <section className="px-14 py-16 lg:p-32 bg-gradient-to-r from-fuchsia-50 to-transparent">
@@ -23,7 +23,7 @@ const Header = () => {
           investments and stay ahead in the digital economy. Start your journey
           today and transform your financial future.
         </p>
-        <Link to="" className="w-32 p-3 bg-black text-white transition duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Start Investing</Link>
+        <Link to="/signup" className="w-32 p-3 bg-black text-white transition duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Start Investing</Link>
       </section>
     </header>
   );
