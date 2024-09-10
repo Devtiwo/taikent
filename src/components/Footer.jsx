@@ -12,7 +12,7 @@ const Footer = () => {
                 <img src="/images/taikent.png" alt="logo" className="w-48"/>
                 <p className="lg:w-3/4 ml-6">At Taikent investments, we are dedicated to providing you with cutting-edge Bitcoin investment solutions and unparalleled support. Our mission is to empower investors with innovative tools, expert insights, and a secure platform to help you navigate the dynamic world of cryptocurrency. Trust us to be your partner in achieving financial growth and success.</p>
             </div>
-            <div className="p-5 flex flex-col lg:flex-row gap-10 mt-5">
+            <div className="p-5 flex flex-col lg:flex-row gap-10 mt-5 ml-5">
             <div>
               <h3 className="text-xl font-semibold mb-3">Contact</h3>
               <ul>
@@ -28,7 +28,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div>
+            <div> 
               <h3 className="text-xl font-semibold mb-3">Useful links</h3>
               <ul>
                 <li className="font-medium mb-3 hover:text-fuchsia-500">
