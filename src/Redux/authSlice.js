@@ -19,6 +19,9 @@ export const authSlice = createSlice({
     logoutSuccess: (state) => {
       state.isLoggedIn = false;
     },
+    clearMessage: (state) => {
+      state.message = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -34,19 +37,20 @@ export const authSlice = createSlice({
         state.status = "failed";
         state.message = action.payload;
       })
-    //   .addCase(login.pending, (state) => {
-    //     state.status = "loading";
-    //     state.message = null;
-    //   })
-    //   .addCase(login.fulfilled, (state, action) => {
-    //     state.status = "succeeded";
-    //     state.isLoggedIn = true;
-    //     state.message = action.payload;
-    //   })
-    //   .addCase(login.rejected, (state, action) => {
-    //     state.status = "failed";
-    //     state.message = action.payload;
-    //   });
+      .addCase(login.pending, (state) => {
+        state.status = "loading";
+        state.message = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.isLoggedIn = true;
+        state.message = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.status = "failed";
+        state.isLoggedIn = false,
+        state.message = action.payload;
+      });
   },
 });
 
@@ -66,4 +70,21 @@ export const signup = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async (values, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseUrl}/user/login`, values);
+      if (response.data.status) {
+        localStorage.token = response.data.token;
+      } else {
+        return rejectWithValue(response.data.message);
+      }
+    } catch (err) {
+      return rejectWithValue("Login failed! Please try again");
+    }
+  }
+);
+
+export const { loginSuccess, logoutSuccess, clearMessage } = authSlice.actions;
 export default authSlice.reducer;
