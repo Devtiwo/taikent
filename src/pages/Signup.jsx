@@ -3,13 +3,19 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import  {signup} from "../Redux/authSlice";
+import  {signup, clearMessage} from "../Redux/authSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { message, status} = useSelector((state) => state.auth);
   const [countdown, setCountdown] = useState(7);
+  
+  useEffect(() => {
+    return () => {
+      dispatch(clearMessage());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if(status === "succeeded") {
@@ -62,9 +68,9 @@ const Signup = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-full bg-gradient-to-l from-fuchsia-200 via-purple-200 to-transparent">
         <div>
-        {message && (<div className="text-center text-sm font-bold mt-5" style={{color: status === "failed" ? "red" : "green"}}>
-            {message}{status === "succeeded" && (<small>redirecting to login page in {countdown} seconds...</small>)}</div>)}
-          <h1 className="font-medium text-2xl text-center mt-5">
+        {message && (<div className="text-center text-sm mt-5" style={{color: status === "failed" ? "red" : "green"}}>
+            {message}{status === "succeeded" && (<p> redirecting to login page in {countdown} seconds...</p>)}</div>)}
+          <h1 className="font-medium text-2xl text-center mt-10 lg:mt-28">
             Let's get you started.
           </h1>
           <form
@@ -86,7 +92,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <small className="text-rose-700 font-medium ml-2 lg:ml-16">
+                <small className="text-rose-700 font-medium ml-2 xl:pl-2 lg:ml-16">
                   {formik.touched.fname && formik.errors.fname}
                 </small>
               </div>
@@ -104,7 +110,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <small className="text-rose-700 font-medium ml-2 lg:ml-16">
+                <small className="text-rose-700 font-medium ml-2 xl:pl-2 lg:ml-16">
                   {formik.touched.lname && formik.errors.lname}
                 </small>
               </div>
@@ -122,7 +128,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <small className="text-rose-700 font-medium ml-2 lg:ml-16">
+                <small className="text-rose-700 font-medium ml-2 xl:pl-2 lg:ml-16">
                   {formik.touched.email && formik.errors.email}
                 </small>
               </div>
@@ -140,7 +146,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <small className="text-rose-700 font-medium ml-2 lg:ml-16">
+                <small className="text-rose-700 font-medium ml-2 xl:pl-2 lg:ml-16">
                   {formik.touched.password && formik.errors.password}
                 </small>
               </div>
