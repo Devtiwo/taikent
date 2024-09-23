@@ -16,7 +16,13 @@ const register = async (req, res) => {
     if (adminEmail.includes(email)) {
       role = "admin";
     }
-    const newUser = new userModel({ fname, lname, email, password, roles: role, });
+    const newUser = new userModel({
+      fname,
+      lname,
+      email,
+      password,
+      roles: role,
+    });
     await newUser.save();
     res.send({
       status: true,
@@ -36,53 +42,70 @@ const login = async (req, res) => {
     if (!email || !password) {
       res.send({
         status: false,
-        message: "Email and password required!"
+        message: "Email and password required!",
       });
     }
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.send({
         status: false,
-        message: "user does not exist. visit the signup page to register!"
+        message: "user does not exist. visit the signup page to register!",
       });
     }
     const isMatch = await user.validatePassword(password);
     if (!isMatch) {
       return res.send({
         status: false,
-        message: "Invalid login credentials!"
+        message: "Invalid login credentials!",
       });
     }
-    const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: "1h"});
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
     res.send({
       status: true,
       message: "Login successful",
-      token
+      token,
     });
   } catch (err) {
     res.send({
       status: false,
-      message: "An error occurred! check your internet connection"
-    })
+      message: "An error occurred! check your internet connection",
+    });
   }
 };
 
 const getDashboard = (req, res) => {
   let token = req.headers.authorization.split(" ")[1];
-  jwt.verify(token, process.env.JWT_SECRET, (err, result) => {
-    if(err) {
-      res.send({
+  jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
+    if (err) {
+     return res.send({
         status: false,
-        message: "token is invalid"
+        message: "token is invalid",
       });
-    } else {
-      res.send({
+    }
+    try {
+      const user = await userModel.findOne({ email: result.email });
+      if (!user) {
+        return res.send({
+          status: false,
+          message: "User not found",
+        });
+      } 
+      return res.send({
         status: true,
         message: "token is valid",
-        user: result
-      })
+        user: {
+          firstName: user.fname,
+        }
+      });
+    } catch (err) {
+      return res.send({
+        status: false,
+        message: "server error! couldn't fetch user data",
+      });
     }
   });
-}
+};
 
 module.exports = { register, login, getDashboard };

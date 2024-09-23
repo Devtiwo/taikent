@@ -129,7 +129,7 @@ const Login = () => {
                 New User?
                 <Link
                   to="/signup"
-                  className="text-sm text-fuchsia-500 hover:text-violet-500"
+                  className="text-sm text-fuchsia-500 hover:text-purple-500"
                 >
                   Sign Up
                 </Link>

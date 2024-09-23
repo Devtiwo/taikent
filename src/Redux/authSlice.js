@@ -3,15 +3,13 @@ import axios from "axios";
 
 export const baseUrl = "http://localhost:5000";
 
-const initialState = {
-  isLoggedIn: false,
-  status: "idle",
-  message: null,
-};
-
 export const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    isLoggedIn: false,
+    status: "idle",
+    message: null
+  },
   reducers: {
     loginSuccess: (state) => {
       state.isLoggedIn = true;
