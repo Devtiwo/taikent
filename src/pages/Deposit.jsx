@@ -6,9 +6,10 @@ import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
 const Deposit = () => {
   const [popUp, setPopUp] = useState(false);
-  const wallet = "3AxZveoyW4MuR8NvjsH61Tfx2XSHZrTefp";
+  const wallet = import.meta.env.VITE_WALLET_ADDRESS;
 
   const handleCopy = () => {
     navigator.clipboard
@@ -160,7 +161,7 @@ const Deposit = () => {
                 <div className="mt-14">
                   <button
                     type="submit"
-                    className="p-3 w-full font-medium text-xl bg-black text-white hover:bg-purple-500 transition ease-in duration-200 rounded-lg"
+                    className="p-3 w-full font-medium text-xl bg-black text-white hover:bg-fuchsia-700 transition ease-in duration-200 rounded-lg"
                   >
                     Confirm Deposit
                   </button>

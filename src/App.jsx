@@ -45,7 +45,7 @@ function App() {
       <Route path="*" element={<Notfound />} />
     </Routes>
     )}
-    <ToastContainer />
+    <ToastContainer position="top-center" theme="colored" hideProgressBar="true" />
     </BrowserRouter>
   )
 }

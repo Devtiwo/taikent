@@ -4,18 +4,14 @@ import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../Redux/userSlice";
 import { Outlet } from "react-router-dom";
+import Preloader from "../Components/Preloader";
 
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { firstName, status, error } = useSelector((state) => state.user);
+  const { user, status, error } = useSelector((state) => state.user);
 
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return null;
-  }
-  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -31,13 +27,23 @@ const Dashboard = () => {
       navigate("/login", { replace: true });
     }
   }, [navigate, status, error]);
-
+  
   return (
     <section className="flex gap-14">
       <Sidebar />
       <div className="flex-grow">
-        <div className="hidden lg:block w-1/5 text-center mt-20 lg:mt-5 mr-10 p-3 float-right bg-slate-200 rounded-full">
-        <h1 className="text-base font-semibold">Hi, {firstName}</h1>
+        <div className="flex flex-row gap-4 text-center mt-20 lg:mt-5 mr-10 py-3 px-4 float-right bg-slate-200 rounded-full">
+          {user ? (
+            <>
+         <div className="bg-fuchsia-600 text-white w-7 h-7 text-sm text-center content-center font-semibold rounded-full">
+           {user.firstName.charAt(0).toUpperCase()}{user.lastName.charAt(0).toUpperCase()}
+         </div>
+         <div className="content-center">
+           <h1 className="text-base font-semibold">{user?.firstName}</h1>
+          </div>
+          </>
+          ) : ( <Preloader/> 
+        )}
         </div>
         <Outlet />
       </div>

@@ -44,9 +44,9 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="h-screen fixed">
+    <div className="h-screen fixed z-50">
       {!isSidebarOpen && (
-        <div className="w-full lg:hidden fixed top-0 left-0 p-4 z-50 bg-white fixed">
+        <div className="w-full lg:hidden fixed top-0 left-0 p-4 bg-white fixed">
           <button onClick={() => setIsSidebarOpen(true)}>
             <HiMenu className="text-4xl text-black" />
           </button>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                 <li key={index} className="mb-7">
                   <Link
                     to={dashLink.to}
-                    className={`flex gap-3 text-lg font-medium transition duration-300 ${
+                    className={`flex gap-1 text-lg font-medium transition duration-300 ${
                       activeLink === dashLink.to
                         ? "bg-fuchsia-700 text-white"
                         : "hover:text-fuchsia-700"

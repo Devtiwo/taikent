@@ -124,7 +124,7 @@ const Support = () => {
           <div className="mt-20 w-full">
             <button
               type="submit"
-              className="p-3 w-full font-medium text-2xl bg-black text-white hover:bg-violet-500 transition ease-in duration-200 rounded-lg"
+              className="p-3 w-full font-medium text-2xl bg-black text-white hover:bg-fuchsia-700 transition ease-in duration-200 rounded-lg"
             >
               Send Message
             </button>

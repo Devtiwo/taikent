@@ -40,7 +40,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      res.send({
+      return res.send({
         status: false,
         message: "Email and password required!",
       });
@@ -59,15 +59,15 @@ const login = async (req, res) => {
         message: "Invalid login credentials!",
       });
     }
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "4h",
     });
     res.send({
       status: true,
       message: "Login successful",
       token,
     });
-  } catch (err) {
+  } catch (err) { 
     res.send({
       status: false,
       message: "An error occurred! check your internet connection",
@@ -75,37 +75,7 @@ const login = async (req, res) => {
   }
 };
 
-const getDashboard = (req, res) => {
-  let token = req.headers.authorization.split(" ")[1];
-  jwt.verify(token, process.env.JWT_SECRET, async (err, result) => {
-    if (err) {
-     return res.send({
-        status: false,
-        message: "token is invalid",
-      });
-    }
-    try {
-      const user = await userModel.findOne({ email: result.email });
-      if (!user) {
-        return res.send({
-          status: false,
-          message: "User not found",
-        });
-      } 
-      return res.send({
-        status: true,
-        message: "token is valid",
-        user: {
-          firstName: user.fname,
-        }
-      });
-    } catch (err) {
-      return res.send({
-        status: false,
-        message: "server error! couldn't fetch user data",
-      });
-    }
-  });
-};
 
-module.exports = { register, login, getDashboard };
+
+
+module.exports = { register, login };

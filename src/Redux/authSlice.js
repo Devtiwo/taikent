@@ -56,7 +56,7 @@ export const signup = createAsyncThunk(
   "auth/signup",
   async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}/user/signup`, values);
+      const response = await axios.post(`${baseUrl}/auth/signup`, values);
       if (response.data.status) {
         return response.data.message;
       } else {
@@ -72,7 +72,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}/user/login`, values);
+      const response = await axios.post(`${baseUrl}/auth/login`, values);
       if (response.data.status) {
         localStorage.token = response.data.token;
       } else {
