@@ -7,13 +7,24 @@ import { IoClose } from "react-icons/io5";
 import { HiMenu } from "react-icons/hi";
 import { PiHandDepositFill } from "react-icons/pi";
 import { IoIosPeople } from "react-icons/io";
+import { logoutSuccess } from "../Redux/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
+  };
+  
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logoutSuccess());
+    navigate("/login");
   };
 
   const dashLinks = [
@@ -90,6 +101,7 @@ const Sidebar = () => {
             <button
               type="button"
               className="w-32 p-2 bg-black hover:bg-fuchsia-700 text-white rounded-full transition ease-in duration-200 font-medium"
+              onClick={handleLogout}
             >
               Logout
             </button>

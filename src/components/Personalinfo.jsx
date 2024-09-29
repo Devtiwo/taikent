@@ -74,7 +74,7 @@ const Personalinfo = ({ user }) => {
                   name="fname"
                   id="fname"
                   placeholder="Enter first name"
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.fname}
@@ -92,7 +92,7 @@ const Personalinfo = ({ user }) => {
                   name="lname"
                   id="lname"
                   placeholder="Enter last name"
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.lname}
@@ -112,7 +112,7 @@ const Personalinfo = ({ user }) => {
                   name="phone"
                   id="phone"
                   placeholder="Enter your phone no."
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
@@ -130,7 +130,7 @@ const Personalinfo = ({ user }) => {
                   name="address"
                   id="address"
                   placeholder="Enter your address"
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.address}
@@ -150,7 +150,7 @@ const Personalinfo = ({ user }) => {
                   name="email"
                   id="email"
                   placeholder="Enter your email"
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
@@ -164,7 +164,7 @@ const Personalinfo = ({ user }) => {
                   Country
                 </label>
                 <select
-                  className="p-3 border-2 border-fuchsia-300 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   id="country"
                   name="country"
                   onChange={formik.handleChange}

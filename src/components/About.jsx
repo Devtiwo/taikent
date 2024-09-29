@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <section>
-      <div className="h-auto flex flex-col lg:flex-row justify-evenly content-center px-3 text-white bg-violet-500 mb-5">
+      <div className="h-auto flex flex-col lg:flex-row justify-evenly content-center px-3 text-white bg-violet-500">
         <div className="text-center p-5">
           <small>Active users</small>
           <span className="font-bold text-2xl">1M+</span>
@@ -17,7 +17,7 @@ const About = () => {
           <span className="font-bold text-2xl">$1.2M+</span>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 mt-32 pb-12 bg-gradient-to-r from-transparent to-fuchsia-100">
+      <div className="grid grid-cols-1 lg:grid-cols-2  pt-14 pb-12 bg-gradient-to-r from-transparent to-fuchsia-100">
         <div className="p-2 mt-10">
           <h1 className="mx-auto w-4/5 tracking-wider font-bold text-5xl text-violet-500">
             What is Taikent?

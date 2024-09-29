@@ -103,7 +103,7 @@ const Changep = () => {
           <div className="mt-12">
             <button
               type="submit"
-              className="py-3 px-5 w-auto font-medium text-lg bg-black text-white hover:bg-purple-500 transition ease-in duration-200 rounded-lg"
+              className="py-3 px-5 w-auto font-medium text-lg bg-black text-white hover:bg-fuchsia-700 transition ease-in duration-200 rounded-lg"
             >
               Change Password
             </button>

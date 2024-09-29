@@ -2,7 +2,7 @@ const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
-  const { fname, lname, email, password } = req.body;
+  const { fname, lname, email, password, phone, address, country } = req.body;
   try {
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
@@ -21,6 +21,9 @@ const register = async (req, res) => {
       lname,
       email,
       password,
+      phone,
+      address,
+      country,
       roles: role,
     });
     await newUser.save();

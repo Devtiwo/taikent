@@ -11,11 +11,9 @@ export const authSlice = createSlice({
     message: null
   },
   reducers: {
-    loginSuccess: (state) => {
-      state.isLoggedIn = true;
-    },
     logoutSuccess: (state) => {
       state.isLoggedIn = false;
+      state.status = "idle";
     },
     clearMessage: (state) => {
       state.message = null;

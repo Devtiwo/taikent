@@ -6,7 +6,6 @@ import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
 const Deposit = () => {
   const [popUp, setPopUp] = useState(false);
   const wallet = import.meta.env.VITE_WALLET_ADDRESS;
@@ -29,51 +28,61 @@ const Deposit = () => {
     initialValues: {
       fname: "",
       lname: "",
-      amount: ""
+      amount: "",
     },
     validationSchema: yup.object({
       fname: yup.string().required("First name is required"),
       lname: yup.string().required("Last name is required"),
-      amount: yup.number().required("Amount deposited is required").positive("Amount must be more than 0").test('valid-btc-amount', 'Must be a valid Bitcoin amount (up to 8 decimal places)', value => 
-        value !== undefined && /^\d+(\.\d{1,8})?$/.test(value.toString())
-      )
+      amount: yup
+        .number()
+        .required("Amount deposited is required")
+        .positive("Amount must be more than 0")
+        .test(
+          "valid-btc-amount",
+          "Must be a valid Bitcoin amount (up to 8 decimal places)",
+          (value) =>
+            value !== undefined && /^\d+(\.\d{1,8})?$/.test(value.toString())
+        ),
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        const response = await axios.post("https://formspree.io/f/xyzgqdpe", values);
+        const response = await axios.post(
+          "https://formspree.io/f/xyzgqdpe",
+          values
+        );
         if (response.status === 200) {
           toast.success("Deposit confirmed.", {
             theme: "colored",
-            position: "top-center"
+            position: "top-center",
           });
           resetForm();
         } else {
           toast.error("Error confirming your deposit!", {
             theme: "colored",
-            position: "top-center"
+            position: "top-center",
           });
-        } 
-      } catch(err) {
+        }
+      } catch (err) {
         toast.error("Error! pls try again", {
           theme: "colored",
-          position: "top-center"
+          position: "top-center",
         });
       }
-    }
+    },
   });
 
   return (
-    <section className="mt-32 lg:ml-56">
-      <div className="w-4/5 mx-auto py-5">
-        <div className="mb-10">
-          <h1 className="text-3xl mb-2">Desposit Funds</h1>
-          <p className="text-xl">
+    <section className="mt-32 lg:ml-48">
+      <div className="lg:ml-48 py-5">
+        <div className="mb-10 px-3">
+          <h1 className="text-2xl mb-2">Deposit Funds</h1>
+          <p className="text-sm">
             you can deposit or top up your investment portfolio for more
             returns.
           </p>
         </div>
-        <div className="w-4/5 mx-auto">
-          <div>
+        <div className="flex flex-col lg:flex-row gap-10 w-4/5 mx-auto">
+          <div className="w-full">
             <h2 className="font-semibold mb-2 text-xl">Step 1.</h2>
             <p className="mb-3">
               Send bitcoin to the bticoin wallet address below
@@ -100,14 +109,14 @@ const Deposit = () => {
               <QRCodeSVG value={wallet} size={200} />
             </div>
           </div>
-          <div>
+          <div className="w-full">
             <div>
               <h2 className="font-semibold mb-2 text-xl">Step 2.</h2>
               <p className="mt-5">Confirm your deposit</p>
               <form
                 method="POST"
                 autoComplete="off"
-                className="bg-slate-50 rounded-lg px-7 mb-20 py-10 w-4/5 lg:w-3/5"
+                className="bg-slate-50 rounded-lg px-7 mb-20 py-10 w-full"
                 onSubmit={formik.handleSubmit}
               >
                 <div className="mb-7">
@@ -122,7 +131,7 @@ const Deposit = () => {
                   />
                   <div>
                     <small className="text-rose-700 font-medium">
-                     {formik.touched.fname && formik.errors.fname}
+                      {formik.touched.fname && formik.errors.fname}
                     </small>
                   </div>
                 </div>
@@ -138,7 +147,7 @@ const Deposit = () => {
                   />
                   <div>
                     <small className="text-rose-700 font-medium">
-                     {formik.touched.lname && formik.errors.lname}
+                      {formik.touched.lname && formik.errors.lname}
                     </small>
                   </div>
                 </div>
@@ -154,7 +163,7 @@ const Deposit = () => {
                   />
                   <div>
                     <small className="text-rose-700 font-medium">
-                     {formik.touched.amount && formik.errors.amount}
+                      {formik.touched.amount && formik.errors.amount}
                     </small>
                   </div>
                 </div>
