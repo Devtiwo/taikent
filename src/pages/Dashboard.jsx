@@ -32,7 +32,7 @@ const Dashboard = () => {
     <section className="flex gap-14">
       <Sidebar />
       <div className="flex-grow">
-        <div className="flex flex-row gap-4 text-center mt-20 lg:mt-5 mr-10 py-3 px-4 float-right bg-slate-200 rounded-full">
+        <div className="flex flex-row gap-4 text-center mt-10 lg:mt-5 mr-10 py-3 px-4 float-right bg-slate-200 rounded-full">
           {user ? (
             <>
          <div className="bg-fuchsia-600 text-white w-7 h-7 text-sm text-center content-center font-semibold rounded-full">

@@ -51,29 +51,20 @@ const Deposit = () => {
           values
         );
         if (response.status === 200) {
-          toast.success("Deposit confirmed.", {
-            theme: "colored",
-            position: "top-center",
-          });
+          toast.success("Deposit confirmed.");
           resetForm();
         } else {
-          toast.error("Error confirming your deposit!", {
-            theme: "colored",
-            position: "top-center",
-          });
+          toast.error("Error confirming your deposit!");
         }
       } catch (err) {
-        toast.error("Error! pls try again", {
-          theme: "colored",
-          position: "top-center",
-        });
+        toast.error("Error! pls try again");
       }
     },
   });
 
   return (
-    <section className="mt-32 lg:ml-48">
-      <div className="lg:ml-48 py-5">
+    <section className="mt-32 lg:ms-64">
+      <div className="lg:ms-10 py-5">
         <div className="mb-10 px-3">
           <h1 className="text-2xl mb-2">Deposit Funds</h1>
           <p className="text-sm">
@@ -81,7 +72,7 @@ const Deposit = () => {
             returns.
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row gap-10 w-4/5 mx-auto">
+        <div className="flex flex-col lg:flex-row gap-10 w-4/5 ms-10">
           <div className="w-full">
             <h2 className="font-semibold mb-2 text-xl">Step 1.</h2>
             <p className="mb-3">

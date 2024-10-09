@@ -74,11 +74,11 @@ const Signup = () => {
   return (
     <section className="h-screen relative z-10">
       <Background />
-      <div className="relative z-20 bg-white">
+      <div className="relative h-28 z-20 bg-white">
         <img
           src="/images/taikent.png"
           alt="logo"
-          className="h-28 w-auto ml-10"
+          className="ml-10"
         />
       </div>
       <div className="relative z-50 h-full">

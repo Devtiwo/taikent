@@ -1,4 +1,4 @@
-const userModel = require("../models/user.model");
+const { userModel } = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
@@ -71,6 +71,7 @@ const login = async (req, res) => {
       token,
     });
   } catch (err) { 
+    console.error("error:", err);
     res.send({
       status: false,
       message: "An error occurred! check your internet connection",

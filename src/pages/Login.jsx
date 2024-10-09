@@ -20,13 +20,10 @@ const Login = () => {
   }, [dispatch]);
   
   useEffect(() => {
-    if (status === "succeeded" && isLoggedIn) {
-      const timer = setTimeout(() => {
-        navigate("/dashboard");
-      }, 4000);
-      return () => clearTimeout(timer);
+    if(isLoggedIn) {
+      navigate("/dashboard", {replace: true});
     }
-  }, [status, navigate, isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -61,7 +58,7 @@ const Login = () => {
       <Background />
       {loading && <Preloader />}
       <div className="h-28 relative z-20 bg-white">
-        <img src="/images/taikent.png" alt="logo" className="h-28 ml-5" />
+        <img src="/images/taikent.png" alt="logo" className="ml-5" />
       </div>
       <div className="relative z-30 h-full">
         <div>

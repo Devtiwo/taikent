@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 let saltRound = 10;
 
-let userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   fname: { type: String, required: true },
   lname: { type: String, required: true },
   phone: { type: String, required: true },
@@ -10,6 +10,12 @@ let userSchema = mongoose.Schema({
   country: { type:String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  payments: [{
+    planName: { type: String, required: true },
+    amount: { type: Number, required: true },
+    btcEquivalent: { type: Number, required: true },
+    date: { type: Date, default: Date.now }
+  }],
   roles: {
     type: String,
     enum: ["user", "admin"],
@@ -39,6 +45,6 @@ userSchema.methods.validatePassword = async function(password) {
   }
 };
  
-let userModel = mongoose.model("users", userSchema, "users");
+const userModel = mongoose.model("users", userSchema, "users");
 
 module.exports = userModel;

@@ -6,12 +6,12 @@ const pricing = () => {
         {
           head: "Starter",
           cost: "$500",
-          packageInfo: ["Weekly withdrawals", "15% profit per week", "Email $ live chat Support"]
+          packageInfo: ["monthly withdrawals", "15% profit per week", "Email $ live chat Support"]
         },
         {
           head: "Basic",
           cost: "$1000",
-          packageInfo: ["Weekly withdrawals", "25% profit per week", "Email & live chat support", "Real-time market price"]
+          packageInfo: ["monthly withdrawals", "25% profit per week", "Email & live chat support", "Real-time market price"]
         },
         {
           head: "Premium",

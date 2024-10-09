@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { getDashboard, changePassword, updateProfile } = require("../controllers/users.controller");
+const { getDashboard, changePassword, updateProfile, recordPayment } = require("../controllers/users.controller");
 
 router.get("/dashboard", getDashboard);
 router.post("/changepassword", changePassword);
 router.put("/updateprofile", updateProfile);
+router.post("/payment", recordPayment);
 
 module.exports = router

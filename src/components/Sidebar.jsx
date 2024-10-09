@@ -57,7 +57,7 @@ const Sidebar = () => {
   return (
     <div className="h-screen fixed z-50">
       {!isSidebarOpen && (
-        <div className="w-full lg:hidden fixed top-0 left-0 p-4 bg-white fixed">
+        <div className="w-full lg:hidden fixed top-0 left-0 p-4 fixed">
           <button onClick={() => setIsSidebarOpen(true)}>
             <HiMenu className="text-4xl text-black" />
           </button>

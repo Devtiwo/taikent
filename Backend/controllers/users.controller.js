@@ -1,4 +1,4 @@
-const userModel = require("../models/user.model");
+const userModel  = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const getDashboard = async (req, res) => {
@@ -22,6 +22,7 @@ const getDashboard = async (req, res) => {
         status: true,
         message: "token is valid",
         user: {
+          userId: user._id,
           firstName: user.fname,
           lastName: user.lname,
           email: user.email,
@@ -120,4 +121,25 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { getDashboard, changePassword, updateProfile }
+const recordPayment =  async (req, res) => {
+  const { userId, planName, amount, btcEquivalent} = req.body;
+  try {
+    const paymentInfo = {
+      planName,
+      amount,
+      btcEquivalent
+    };
+    await userModel.findByIdAndUpdate(userId, { $push: { payments: paymentInfo } });
+    res.status(201).send({
+      status: true,
+      message: "Payment processed successfully!"
+    })
+  } catch(err) {
+    res.status(500).send({
+      status: false,
+      message: "Error! Pls try again."
+    })
+  }
+};
+
+module.exports = { getDashboard, changePassword, updateProfile, recordPayment };
