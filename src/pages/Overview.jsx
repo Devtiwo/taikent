@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { FaWallet } from "react-icons/fa6";
 import { GiCash } from "react-icons/gi";
 import { BiMoneyWithdraw } from "react-icons/bi";
-import BtcChart from "../components/BtcChart";
+import BtcChart from "../Components/BtcChart";
 import { Link } from "react-router-dom";
-import Coins from "../components/Coins";
+import Coins from "../Components/Coins";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as yup from "yup";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser } from "../Redux/userSlice";
 import { updateBalance } from "../Redux/balanceSlice";
@@ -18,7 +18,7 @@ const Overview = () => {
   const userId = useSelector((state) => state.user.user?.userId);
   const balances = useSelector((state) => state.balance.balances) || {};
   const dispatch = useDispatch();
-  
+
   const userBalance = balances[userId] || {
     balance: 0,
     plan: "None",
@@ -26,7 +26,7 @@ const Overview = () => {
     withdrawBal: 0,
   };
   const { balance, plan, profit, withdrawBal } = userBalance;
-  
+
   useEffect(() => {
     const fetchBtcRate = async () => {
       try {
@@ -47,7 +47,7 @@ const Overview = () => {
       dispatch(updateBalance({ userId }));
     }
   }, [dispatch, userId]);
-  
+
   const formatUsd = (btcValue) => {
     if (btcToUsdRate === null) return "Loading...";
     const usdValue = btcValue * btcToUsdRate;
@@ -61,7 +61,7 @@ const Overview = () => {
       text: "Balance",
       balDesc: "Btc",
       balance: balance.toFixed(8),
-      usdEquivalent: formatUsd(balance)
+      usdEquivalent: formatUsd(balance),
     },
     {
       wrapper: "p-3 bg-sky-100 w-full rounded-lg",
@@ -69,7 +69,7 @@ const Overview = () => {
       text: `Plan: ${plan}`,
       balDesc: "Profit",
       balance: profit.toFixed(8),
-      usdEquivalent: formatUsd(profit)
+      usdEquivalent: formatUsd(profit),
     },
     {
       wrapper: "p-3 bg-orange-100 w-full rounded-lg",
@@ -77,27 +77,39 @@ const Overview = () => {
       text: "Withdrawable",
       balDesc: "Balance",
       balance: withdrawBal.toFixed(8),
-      usdEquivalent: formatUsd(withdrawBal)
+      usdEquivalent: formatUsd(withdrawBal),
     },
   ];
 
   const formik = useFormik({
     initialValues: {
       accName: "",
-      amount: ""
+      amount: "",
     },
     validationSchema: yup.object({
       accName: yup.string().required("select the account to withdraw from"),
-      amount: yup.number().required("Amount to withdraw is required").positive("Amount must be more that 0").test(
-        "valid-btc-amount",
-        "Must be a valid Bitcoin amount (up to 8 decimal places)",
-        (value) =>
-          value !== undefined && /^\d+(\.\d{1,8})?$/.test(value.toString())
-      ).test("sufficient-funds", "Insufficient funds", (value) => value <= withdrawBal)
+      amount: yup
+        .number()
+        .required("Amount to withdraw is required")
+        .positive("Amount must be more that 0")
+        .test(
+          "valid-btc-amount",
+          "Must be a valid Bitcoin amount (up to 8 decimal places)",
+          (value) =>
+            value !== undefined && /^\d+(\.\d{1,8})?$/.test(value.toString())
+        )
+        .test(
+          "sufficient-funds",
+          "Insufficient funds",
+          (value) => value <= withdrawBal
+        ),
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        const response = await axios.post("https://formspree.io/f/xnnqaqlo", values);
+        const response = await axios.post(
+          "https://formspree.io/f/xnnqaqlo",
+          values
+        );
         if (response.status === 200) {
           toast.success("Withdrawal request sent");
           resetForm();
@@ -107,7 +119,7 @@ const Overview = () => {
       } catch (err) {
         toast.error("Error! pls try again");
       }
-    }
+    },
   });
   return (
     <section className="px-5 mt-32 h-screen lg:ms-64">
@@ -127,7 +139,7 @@ const Overview = () => {
                 </div>
                 <div className="bg-white px-3 rounded-full py-1">
                   <p className="font-medium mx-auto content-center text-xs">
-                    {card.balDesc}: 
+                    {card.balDesc}:
                     <span className="ms-3 font-semibold text-sm content-center">
                       {card.balance} ⇔ {card.usdEquivalent}
                     </span>
@@ -136,53 +148,74 @@ const Overview = () => {
               </div>
             ))}
           </div>
-           {/* Request Withdrawal section*/}
+          {/* Request Withdrawal section*/}
           <div className="mt-10 w-full lg:w-11/12 bg-slate-100 p-3 rounded-lg">
             <div className="rounded-lg p-3">
               <h1 className="text-3xl font-medium mb-1">Request Withdrawal</h1>
-              <p className="mb-7 text-sm font-medium">Note: Your withdrawal request will be processed by the firm's finance team. Processing times may vary due to network congestion!</p>
+              <p className="mb-7 text-sm font-medium">
+                Note: Your withdrawal request will be processed by the firm's
+                finance team. Processing times may vary due to network
+                congestion!
+              </p>
               <div>
-                <form className="w-full" method="POST" autoComplete="off" onSubmit={formik.handleSubmit}>
+                <form
+                  className="w-full"
+                  method="POST"
+                  autoComplete="off"
+                  onSubmit={formik.handleSubmit}
+                >
                   <div className="bg-fuchsia-300 py-5 px-5 rounded-lg">
-                  <h2 className="text-2xl font-semibold">Select Account</h2>
-                  <p className="font-medium text-sm mb-5">Select the account you will like to withdraw from</p>
-                  <div>
-                  <select 
-                  className="outline-0 w-full p-2 font-medium rounded-md text-sm text-gray-700 placeholder-text-sm"
-                  name="accName"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.accName}
-                  >
-                    <option value="">Select Account for Withdrawal</option>
-                    <option value={plan}>{plan}</option>
-                  </select>
-                  <small className="text-rose-700 font-medium ml-1">
-                    {formik.touched.accName && formik.errors.accName}</small>
-                  </div>
+                    <h2 className="text-2xl font-semibold">Select Account</h2>
+                    <p className="font-medium text-sm mb-5">
+                      Select the account you will like to withdraw from
+                    </p>
+                    <div>
+                      <select
+                        className="outline-0 w-full p-2 font-medium rounded-md text-sm text-gray-700 placeholder-text-sm"
+                        name="accName"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.accName}
+                      >
+                        <option value="">Select Account for Withdrawal</option>
+                        <option value={plan}>{plan}</option>
+                      </select>
+                      <small className="text-rose-700 font-medium ml-1">
+                        {formik.touched.accName && formik.errors.accName}
+                      </small>
+                    </div>
                   </div>
                   <div className="mt-4 mb-7 ">
-                  <label htmlFor="amount" className="ml-1 text-sm font-medium">Amount to withdraw</label>
-                  <input 
-                  type="number" 
-                  id="amount" 
-                  className="outline-0 w-full py-2 px-4 text-sm placeholder-text-sm rounded-lg border-2 border-fuchsia-300" 
-                  name="amount" 
-                  placeholder="Amount to withdraw" 
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.amount}
-                  />
-                  <small className="text-rose-700 font-medium ml-1">
-                    {formik.touched.amount && formik.errors.amount}</small>
-                  </div> 
+                    <label
+                      htmlFor="amount"
+                      className="ml-1 text-sm font-medium"
+                    >
+                      Amount to withdraw
+                    </label>
+                    <input
+                      type="number"
+                      id="amount"
+                      className="outline-0 w-full py-2 px-4 text-sm placeholder-text-sm rounded-lg border-2 border-fuchsia-300"
+                      name="amount"
+                      placeholder="Amount to withdraw"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.amount}
+                    />
+                    <small className="text-rose-700 font-medium ml-1">
+                      {formik.touched.amount && formik.errors.amount}
+                    </small>
+                  </div>
                   <div>
-                  <button type="submit" className="bg-black font-medium text-white px-5 py-3 rounded-lg transition ease-in duration-200 hover:bg-fuchsia-700">Submit request</button>
+                    <button
+                      type="submit"
+                      className="bg-black font-medium text-white px-5 py-3 rounded-lg transition ease-in duration-200 hover:bg-fuchsia-700"
+                    >
+                      Submit request
+                    </button>
                   </div>
                 </form>
-                <div>
-
-                </div>
+                <div></div>
               </div>
             </div>
           </div>

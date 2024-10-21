@@ -5,23 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearMessage } from "../Redux/authSlice";
 import Preloader from "../Components/Preloader";
-import Background from "../components/Background";
+import Background from "../Components/Background";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { message, status, isLoggedIn } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     return () => {
       dispatch(clearMessage());
-    }
+    };
   }, [dispatch]);
-  
+
   useEffect(() => {
-    if(isLoggedIn) {
-      navigate("/dashboard", {replace: true});
+    if (isLoggedIn) {
+      navigate("/dashboard", { replace: true });
     }
   }, [isLoggedIn, navigate]);
 
@@ -71,7 +71,7 @@ const Login = () => {
             </p>
           )}
           <h1 className="font-medium text-2xl text-center mt-16 lg:mt-20">
-            Welcome Back. Please log in 
+            Welcome Back. Please log in
           </h1>
           <form
             className="w-4/5 lg:w-2/6 mx-auto py-16 px-7 mt-5 bg-slate-50 shadow-2xl shadow-fuchsia-300"
@@ -80,39 +80,48 @@ const Login = () => {
             onSubmit={formik.handleSubmit}
           >
             <div className="flex flex-col w-full mb-5">
-                <label htmlFor="email" className="mb-1 ml-1 text-sm">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email Address"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.email}
-                />
-                <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.email && formik.errors.email}
-                </small>
+              <label htmlFor="email" className="mb-1 ml-1 text-sm">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email Address"
+                className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+              />
+              <small className="text-rose-700 font-medium ml-1 mt-1">
+                {formik.touched.email && formik.errors.email}
+              </small>
             </div>
             <div className="flex flex-col w-full mb-5">
-                <label htmlFor="password" className="mb-1 ml-1 text-sm">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                />
-                <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.password && formik.errors.password}
-                </small>
+              <label htmlFor="password" className="mb-1 ml-1 text-sm">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+              />
+              <small className="text-rose-700 font-medium ml-1 mt-1">
+                {formik.touched.password && formik.errors.password}
+              </small>
             </div>
             <div className="mt-2 mb-3">
-                <Link to="/forgot-password" className="text-sm hover:text-fuchsia-700 float-right">Forgot password?</Link>
-             </div>
+              <Link
+                to="/forgot-password"
+                className="text-sm hover:text-fuchsia-700 float-right"
+              >
+                Forgot password?
+              </Link>
+            </div>
             <div className="mt-20 flex lg:justify-center">
               <button
                 type="submit"
