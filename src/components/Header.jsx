@@ -1,7 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const token = localStorage.getItem("token");
+    if(!token) {
+      navigate("/login");
+      return;
+    }
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const isTokenExpired = payload.exp * 1000 < Date.now();
+      if (isTokenExpired) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  };
+
   return (
     <header>
       <nav className="h-28 flex justify-between px-10 lg:px-24">
@@ -9,7 +32,13 @@ const Header = () => {
           <img src="/images/taikent.png" alt="logo" />
         </div>
         <div className="my-auto"> 
-          <Link to="/login" className="py-2 px-12 outline-0 transition ease-in duration-200 font-medium border-2 border-fuchsia-500 hover:text-white hover:bg-fuchsia-700 hover:border-none">Login</Link>
+          <button 
+          type="button"
+          onClick={handleClick}
+          className="py-2 px-12 outline-0 transition ease-in duration-200 font-medium border-2 border-fuchsia-500 hover:text-white hover:bg-fuchsia-700 hover:border-none"
+          >
+            Login
+            </button>
         </div>
       </nav>
       <section className="px-14 py-16 lg:p-32 bg-gradient-to-r from-fuchsia-50 to-transparent">

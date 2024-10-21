@@ -6,15 +6,15 @@ const About = () => {
       <div className="h-auto flex flex-col lg:flex-row justify-evenly content-center px-3 text-white bg-violet-500">
         <div className="text-center p-5">
           <small>Active users</small>
-          <span className="font-bold text-2xl">1M+</span>
+          <span className="font-bold text-2xl ml-3">1M+</span>
         </div>
         <div className="text-center p-5">
           <small>Transactions</small>
-          <span className="font-bold text-2xl">$750M+</span>
+          <span className="font-bold text-2xl ml-3">$750M+</span>
         </div>
         <div className="text-center p-5">
           <small>Transactions per second</small>
-          <span className="font-bold text-2xl">$1.2M+</span>
+          <span className="font-bold text-2xl ml-3">$1.2M+</span>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2  pt-14 pb-12 bg-gradient-to-r from-transparent to-fuchsia-100">

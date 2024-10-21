@@ -13,7 +13,11 @@ import Deposit from "./pages/Deposit";
 import Profile from "./pages/Profile";
 import Support from "./pages/Support";
 import Notfound from "./pages/Notfound";
+import Admin from "./pages/Admin";
+import Forgotpassword from './pages/Forgotpassword';
 import { ToastContainer } from 'react-toastify';
+import Resetpassword from './pages/Resetpassword';
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +38,9 @@ function App() {
       <Route path="/home" element={<Navigate to="/" />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/forgot-password" element={<Forgotpassword />} />
+      <Route path="/reset-password/:token" element={<Resetpassword />} />
       <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login"/>} >
         <Route path="overview" element={<Overview />} />
         <Route index element={<Overview />} />

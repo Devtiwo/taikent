@@ -21,7 +21,7 @@ const Footer = () => {
                   3915 NW 25th St. Miami, Florida USA
                 </li>
                 <li className="flex gap-3 font-medium mb-3">
-                  <MdEmail className="mt-0.5 text-fuchsia-500"/> info@taikentinvestments.com
+                  <MdEmail className="mt-0.5 text-fuchsia-500"/> support@taikentinvestments.com
                 </li>
                 <li className="flex gap-3 font-medium mb-3">
                   <FaPhone className="mt-0.5 text-fuchsia-500"/> 305-465-7089

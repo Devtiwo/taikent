@@ -111,7 +111,7 @@ const Login = () => {
                 </small>
             </div>
             <div className="mt-2 mb-3">
-                <Link to="#" className="text-sm hover:text-fuchsia-700 float-right">Forgot password?</Link>
+                <Link to="/forgot-password" className="text-sm hover:text-fuchsia-700 float-right">Forgot password?</Link>
              </div>
             <div className="mt-20 flex lg:justify-center">
               <button
