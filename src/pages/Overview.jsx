@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaWallet } from "react-icons/fa6";
 import { GiCash } from "react-icons/gi";
 import { BiMoneyWithdraw } from "react-icons/bi";
@@ -9,29 +9,75 @@ import { useFormik } from "formik";
 import axios from "axios";
 import * as yup from "yup";
 import { toast } from "react-toastify"
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser } from "../Redux/userSlice";
+import { updateBalance } from "../Redux/balanceSlice";
 
 const Overview = () => {
+  const [btcToUsdRate, setBtcToUsdRate] = useState(null);
+  const userId = useSelector((state) => state.user.user?.userId);
+  const balances = useSelector((state) => state.balance.balances) || {};
+  const dispatch = useDispatch();
+  
+  const userBalance = balances[userId] || {
+    balance: 0,
+    plan: "None",
+    profit: 0,
+    withdrawBal: 0,
+  };
+  const { balance, plan, profit, withdrawBal } = userBalance;
+  
+  useEffect(() => {
+    const fetchBtcRate = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+        );
+        setBtcToUsdRate(response.data.bitcoin.usd);
+      } catch (error) {
+        console.error("Error fetching BTC to USD rate:", error);
+      }
+    };
+    fetchBtcRate();
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUser(userId));
+      dispatch(updateBalance({ userId }));
+    }
+  }, [dispatch, userId]);
+  
+  const formatUsd = (btcValue) => {
+    if (btcToUsdRate === null) return "Loading...";
+    const usdValue = btcValue * btcToUsdRate;
+    return `$${usdValue.toFixed(2)}`;
+  };
+
   const cards = [
     {
       wrapper: "p-3 bg-lime-100 w-full rounded-lg",
       icon: <FaWallet className="text-3xl mx-auto text-lime-700" />,
       text: "Balance",
       balDesc: "Btc",
-      balance: "0.897657",
+      balance: balance.toFixed(8),
+      usdEquivalent: formatUsd(balance)
     },
     {
       wrapper: "p-3 bg-sky-100 w-full rounded-lg",
       icon: <GiCash className="text-3xl mx-auto text-sky-700" />,
-      text: "Plan: platinum",
+      text: `Plan: ${plan}`,
       balDesc: "Profit",
-      balance: "0.897657",
+      balance: profit.toFixed(8),
+      usdEquivalent: formatUsd(profit)
     },
     {
       wrapper: "p-3 bg-orange-100 w-full rounded-lg",
       icon: <BiMoneyWithdraw className="text-3xl mx-auto text-orange-700" />,
       text: "Withdrawable",
       balDesc: "Balance",
-      balance: "0.897657",
+      balance: withdrawBal.toFixed(8),
+      usdEquivalent: formatUsd(withdrawBal)
     },
   ];
 
@@ -47,7 +93,7 @@ const Overview = () => {
         "Must be a valid Bitcoin amount (up to 8 decimal places)",
         (value) =>
           value !== undefined && /^\d+(\.\d{1,8})?$/.test(value.toString())
-      )
+      ).test("sufficient-funds", "Insufficient funds", (value) => value <= withdrawBal)
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
@@ -71,7 +117,7 @@ const Overview = () => {
           <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-11/12">
             {cards.map((card, index) => (
               <div key={index} className={card.wrapper}>
-                <div className="flex mb-5 gap-5">
+                <div className="flex mb-5 gap-4">
                   <div className="rounded-full bg-white w-12 h-12 content-center">
                     {card.icon}
                   </div>
@@ -83,7 +129,7 @@ const Overview = () => {
                   <p className="font-medium mx-auto content-center text-xs">
                     {card.balDesc}: 
                     <span className="ms-3 font-semibold text-sm content-center">
-                      {card.balance}
+                      {card.balance} ⇔ {card.usdEquivalent}
                     </span>
                   </p>
                 </div>
@@ -109,7 +155,7 @@ const Overview = () => {
                   value={formik.values.accName}
                   >
                     <option value="">Select Account for Withdrawal</option>
-                    <option value="platinum-9876">Platinum-9876</option>
+                    <option value={plan}>{plan}</option>
                   </select>
                   <small className="text-rose-700 font-medium ml-1">
                     {formik.touched.accName && formik.errors.accName}</small>

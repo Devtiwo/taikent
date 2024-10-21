@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
   country: { type:String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  resetToken: { type: String },
+  tokenExpires: { type: Date },
+  plan: { type: String, default: 0 },
+  balance: { type: Number, default: 0 },
+  profit: { type: Number, default: 0 },
+  withdrawBal: { type: Number, default: 0 },
   payments: [{
     planName: { type: String, required: true },
     amount: { type: Number, required: true },
