@@ -1,11 +1,11 @@
-import React from 'react';
-import Header from '../components/Header';
-import About from '../components/About';
-import Benefits from '../components/Benefits';
-import Join from '../components/Join';
-import Pricing from '../components/pricing';
-import Testimonials from '../components/Testimonials';
-import Footer from '../components/Footer';
+import React from "react";
+import Header from "../Components/Header";
+import About from "../Components/About";
+import Benefits from "../Components/Benefits";
+import Join from "../Components/Join";
+import Pricing from "../Components/pricing";
+import Testimonials from "../Components/Testimonials";
+import Footer from "../Components/Footer";
 
 const Home = () => {
   return (
@@ -18,7 +18,7 @@ const Home = () => {
       <Testimonials />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
