@@ -19,7 +19,7 @@ const register = async (req, res) => {
     });
     await newUser.save();
     await transporter.sendMail({
-      from: `Taikent <process.env.EMAIL_USER>`,
+      from: `Taikent <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Welcome to Taikent Investments",
       html: `
@@ -111,7 +111,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
     const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
     await transporter.sendMail({
-      from: `Taikent <${process.env.EMAIL_USER}>`,
+      from: `Taikent <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Reset your account Password",
       html: `
@@ -206,7 +206,7 @@ const resetPassword = async (req, res) => {
     user.tokenExpires = undefined;
     await user.save();
     await transporter.sendMail({
-      from: `Taikent <${process.env.EMAIL_USER}>`,
+      from: `Taikent <${process.env.SMTP_USER}>`,
       to: user.email,
       subject: "Password changed successfully",
       html: `
