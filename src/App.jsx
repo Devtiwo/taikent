@@ -22,6 +22,7 @@ import Resetpassword from './pages/Resetpassword';
 function App() {
   const [loading, setLoading] = useState(true);
   const isLoggedIn  = useSelector((state) => state.auth.isLoggedIn);
+  const userRole = useSelector((state) => state.user.user?.roles);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,13 +33,13 @@ function App() {
 
   return (
     <BrowserRouter>
-    {loading ? (<Preloader />) : (
+    {loading ? <Preloader /> : (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Navigate to="/" />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin" element={isLoggedIn && userRole === "admin" ? <Admin /> : <Navigate to="/dashboard" />} />
       <Route path="/forgot-password" element={<Forgotpassword />} />
       <Route path="/reset-password/:token" element={<Resetpassword />} />
       <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login"/>} >
