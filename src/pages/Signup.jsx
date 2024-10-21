@@ -66,7 +66,6 @@ const Signup = () => {
           setStatus(result.payload);
         }
       } catch (error) {
-        console.error("Signup error:", error);
         setStatus("An uexpected error occured!");
       }
     },
