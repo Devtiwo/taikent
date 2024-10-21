@@ -6,12 +6,12 @@ const pricing = () => {
         {
           head: "Starter",
           cost: "$500",
-          packageInfo: ["Weekly withdrawals", "15% profit per week", "Email $ live chat Support"]
+          packageInfo: ["monthly withdrawals", "15% profit per week", "Email $ live chat Support"]
         },
         {
           head: "Basic",
           cost: "$1000",
-          packageInfo: ["Weekly withdrawals", "25% profit per week", "Email & live chat support", "Real-time market price"]
+          packageInfo: ["monthly withdrawals", "25% profit per week", "Email & live chat support", "Real-time market price"]
         },
         {
           head: "Premium",
@@ -26,7 +26,7 @@ const pricing = () => {
       ];
   return (
     <section className="bg-gradient-to-t from-fuchsia-100 to-transparent">
-        <h1 className="text-center text-4xl font-bold my-12">Choose your investment plan</h1>
+        <h1 className="text-center text-4xl font-bold my-12">view our investment plans</h1>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 justify-evenly w-4/5 mx-auto h-auto py-12 lg:py-20">
           {price.map((info, index) => (
             <div key={index} className="border-2 rounded-2xl border-fuchsia-300 w-64 mx-auto p-5">

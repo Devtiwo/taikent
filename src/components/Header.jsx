@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header>
-      <nav className="h-24 flex justify-between px-10 lg:px-24">
+      <nav className="h-28 flex justify-between px-10 lg:px-24">
         <div>
-          <img src="/images/taikent.png" alt="logo" className="h-36"/>
+          <img src="/images/taikent.png" alt="logo" />
         </div>
         <div className="my-auto"> 
           <Link to="/login" className="py-2 px-12 outline-0 transition ease-in duration-200 font-medium border-2 border-fuchsia-500 hover:text-white hover:bg-fuchsia-700 hover:border-none">Login</Link>

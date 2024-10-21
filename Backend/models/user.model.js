@@ -2,11 +2,20 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 let saltRound = 10;
 
-let userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   fname: { type: String, required: true },
   lname: { type: String, required: true },
+  phone: { type: String, required: true },
+  address: { type: String, required: true },
+  country: { type:String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  payments: [{
+    planName: { type: String, required: true },
+    amount: { type: Number, required: true },
+    btcEquivalent: { type: Number, required: true },
+    date: { type: Date, default: Date.now }
+  }],
   roles: {
     type: String,
     enum: ["user", "admin"],
@@ -28,17 +37,14 @@ userSchema.pre("save", async function(next) {
   }
 });
 
-userSchema.methods.validatePassword = function(password) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, this.password, (err, isMatch) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(isMatch);
-    });
-  });
-}
-
-let userModel = mongoose.model("users", userSchema, "users");
+userSchema.methods.validatePassword = async function(password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (err) {
+    throw new Error("Password validation error");
+  }
+};
+ 
+const userModel = mongoose.model("users", userSchema, "users");
 
 module.exports = userModel;

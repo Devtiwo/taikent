@@ -1,197 +1,124 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { signup, clearMessage } from "../Redux/authSlice";
-import Background from "../components/Background";
+import axios from "axios";
+import { baseUrl } from "../Redux/authSlice";
+import { toast } from "react-toastify";
 
-const Signup = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { message, status } = useSelector((state) => state.auth);
-  const [countdown, setCountdown] = useState(5);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearMessage());
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (status === "succeeded") {
-      const timer = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
-      const redirectTimeout = setTimeout(() => {
-        navigate("/login");
-      }, countdown * 1000);
-      return () => {
-        clearInterval(timer);
-        clearTimeout(redirectTimeout);
-      };
-    }
-  }, [status, navigate, countdown]);
+const Personalinfo = ({ user }) => {
   const formik = useFormik({
     initialValues: {
-      fname: "",
-      lname: "",
-      email: "",
-      password: "",
-      phone: "",
-      address: "",
-      country: "",
+      fname: user.firstName || "",
+      lname: user.lastName || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      address: user.address || "",
+      country: user.country || ""
     },
+    enableReinitialize: true,
     validationSchema: yup.object({
       fname: yup.string().required("First name is required"),
-      lname: yup.string().required("Last name is required"),
+      lname: yup.string().required("last name is required"),
       email: yup
         .string()
         .required("Email is required")
-        .email("Enter a valid email"),
-      password: yup
+        .email("A valid email is required"),
+      phone: yup
         .string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long"),
-      phone: yup.string().required("A valid phone number is required"),
+        .required("Phone no. is required")
+        .matches(
+          /^\d{3,15}$/,
+          "Enter a valid phone number without dailing code"
+        ),
       address: yup.string().required("Address is required"),
-      country: yup.string().required("Country is required")
+      country: yup.string().required("Country is required"),
     }),
-    onSubmit: async (values, { resetForm, setStatus }) => {
+    onSubmit: async (values) => {
       try {
-        const result = await dispatch(signup(values));
-        if (signup.fulfilled.match(result)) {
-          resetForm();
+        const token = localStorage.getItem("token");
+        const response = await axios.put(`${baseUrl}/user/updateprofile`, values,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (response.data.status) {
+          toast.success(response.data.message);
         } else {
-          setStatus(result.payload);
+          toast.error(response.data.message || "Error updating profile");
         }
-      } catch (error) {
-        console.error("Signup error:", error);
-        setStatus("An uexpected error occured!");
+      } catch (err) {
+        toast.error(
+          err.response?.data?.message || "Server error! Please try again."
+        );
       }
     },
   });
   return (
-    <section className="h-screen relative z-10">
-      <Background />
-      <div className="relative h-28 z-20 bg-white">
-        <img
-          src="/images/taikent.png"
-          alt="logo"
-          className="ml-10"
-        />
-      </div>
-      <div className="relative z-50 h-full">
+    <section className="mt-20">
+      <div>
         <div>
-          {message && (
-            <div
-              className="text-center text-sm mt-5"
-              style={{ color: status === "failed" ? "red" : "green" }}
-            >
-              {message}
-              {status === "succeeded" && (
-                <p> redirecting to login page in {countdown} seconds...</p>
-              )}
-            </div>
-          )}
-          <h1 className="font-medium text-2xl text-center mt-10 ">
-            Let's get you started.
-          </h1>
+          <h1 className="text-4xl ml-5">Personal Information</h1>
           <form
-            className="w-4/5 lg:w-2/5 mx-auto py-12 px-7 bg-slate-50 shadow-2xl shadow-fuchsia-300"
-            autoComplete="off"
+            className="p-5 w-full lg:w-4/5 mt-5 mb-10"
             method="POST"
+            autoComplete="off"
             onSubmit={formik.handleSubmit}
           >
-            <div className="flex gap-5 flex-col lg:flex-row mb-5">
+            <div className="flex flex-col lg:flex-row gap-7 mb-5">
               <div className="flex flex-col w-full">
-                <label htmlFor="fname" className="mb-1 ml-1 text-sm">
+                <label htmlFor="fname" className="mb-1 ml-1">
                   First Name
                 </label>
                 <input
                   type="text"
-                  id="fname"
                   name="fname"
-                  placeholder="First Name"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  id="fname"
+                  placeholder="Enter first name"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.fname}
                 />
                 <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.fname && formik.errors.fname}
+                 {formik.touched.fname && formik.errors.fname}
                 </small>
               </div>
               <div className="flex flex-col w-full">
-                <label htmlFor="lname" className="mb-1 ml-1 text-sm">
+                <label htmlFor="lname" className="mb-1 ml-1">
                   Last Name
                 </label>
                 <input
                   type="text"
-                  id="lname"
                   name="lname"
-                  placeholder="Last Name"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  id="lname"
+                  placeholder="Enter last name"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.lname}
                 />
                 <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.lname && formik.errors.lname}
+                 {formik.touched.lname && formik.errors.lname}
                 </small>
               </div>
             </div>
-            <div className="flex gap-5 flex-col lg:flex-row mb-5">
+            <div className="flex flex-col lg:flex-row gap-7 mb-5">
               <div className="flex flex-col w-full">
-                <label htmlFor="email" className="mb-1 ml-1 text-sm">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email Address"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.email}
-                />
-                <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.email && formik.errors.email}
-                </small>
-              </div>
-              <div className="flex flex-col w-full">
-                <label htmlFor="password" className="mb-1 ml-1 text-sm">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                />
-                <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.password && formik.errors.password}
-                </small>
-              </div>
-            </div>
-            <div className="flex gap-5 flex-col lg:flex-row mb-5">
-              <div className="flex flex-col w-full">
-                <label htmlFor="phone" className="mb-1 ml-1 text-sm">
-                  Phone No.(without dailing code)
+                <label htmlFor="phone" className="mb-1 ml-1">
+                  Phone Number
                 </label>
                 <input
-                  type="text"
-                  id="phone"
+                  type="tel"
                   name="phone"
-                  placeholder="Phone Number"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  id="phone"
+                  placeholder="Enter your phone no."
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                 />
                 <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.phone && formik.errors.phone}
+                 {formik.touched.phone && formik.errors.phone}
                 </small>
               </div>
               <div className="flex flex-col w-full">
@@ -200,22 +127,40 @@ const Signup = () => {
                 </label>
                 <input
                   type="text"
-                  id="address"
                   name="address"
-                  placeholder="Address"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  id="address"
+                  placeholder="Enter your address"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.address}
                 />
                 <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.address && formik.errors.address}
+                 {formik.touched.address && formik.errors.address}
                 </small>
               </div>
             </div>
-            
+            <div className="flex flex-col lg:flex-row gap-7 mb-5">
               <div className="flex flex-col w-full">
-                <label htmlFor="country" className="mb-1 ml-1 text-sm">
+                <label htmlFor="email" className="mb-1 ml-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                />
+                <small className="text-rose-700 font-medium ml-1 mt-1">
+                 {formik.touched.email && formik.errors.email}
+                </small>
+              </div>
+              <div className="flex flex-col w-full">
+                <label htmlFor="country" className="mb-1 ml-1">
                   Country
                 </label>
                 <select
@@ -425,27 +370,17 @@ const Signup = () => {
                   <option value="Zimbabwe">Zimbabwe</option>
                 </select>
                 <small className="text-rose-700 font-medium ml-1 mt-1">
-                  {formik.touched.country && formik.errors.country}
+                 {formik.touched.country && formik.errors.country}
                 </small>
               </div>
-            <div className="mt-14 flex lg:justify-center">
+            </div>
+            <div>
               <button
                 type="submit"
-                className="p-3 w-full lg:w-2/5 font-medium text-2xl bg-black text-white hover:bg-fuchsia-700 transition ease-in duration-200 rounded-lg"
+                className="py-3 px-5 mt-14 w-auto font-medium text-lg bg-black text-white hover:bg-fuchsia-700 transition ease-in duration-200 rounded-lg"
               >
-                Register
+                Save changes
               </button>
-            </div>
-            <div className="text-center font-medium mt-8">
-              <small>
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="text-sm text-fuchsia-500 hover:text-purple-500"
-                >
-                  Login
-                </Link>
-              </small>
             </div>
           </form>
         </div>
@@ -454,4 +389,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Personalinfo;

@@ -3,21 +3,17 @@ import axios from "axios";
 
 export const baseUrl = "http://localhost:5000";
 
-const initialState = {
-  isLoggedIn: false,
-  status: "idle",
-  message: null,
-};
-
 export const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    isLoggedIn: false,
+    status: "idle",
+    message: null
+  },
   reducers: {
-    loginSuccess: (state) => {
-      state.isLoggedIn = true;
-    },
     logoutSuccess: (state) => {
       state.isLoggedIn = false;
+      state.status = "idle";
     },
     clearMessage: (state) => {
       state.message = null;
@@ -58,7 +54,7 @@ export const signup = createAsyncThunk(
   "auth/signup",
   async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}/user/signup`, values);
+      const response = await axios.post(`${baseUrl}/auth/signup`, values);
       if (response.data.status) {
         return response.data.message;
       } else {
@@ -74,7 +70,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (values, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}/user/login`, values);
+      const response = await axios.post(`${baseUrl}/auth/login`, values);
       if (response.data.status) {
         localStorage.token = response.data.token;
       } else {
