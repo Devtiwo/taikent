@@ -10,9 +10,9 @@ import Background from "../Components/Background";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { message, status, isLoggedIn } = useSelector((state) => state.auth);
+  const { message, status, isLoggedIn, user } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     return () => {
       dispatch(clearMessage());
@@ -20,10 +20,15 @@ const Login = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/dashboard", { replace: true });
+    if (isLoggedIn && user?.role) {
+      const role = user.role;
+      if (role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, user, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +52,6 @@ const Login = () => {
           setStatus(result.payload);
         }
       } catch (error) {
-        console.error("Login error:", error);
         setStatus("An uexpected error occured!");
         setLoading(false);
       }

@@ -19,6 +19,7 @@ const Sidebar = () => {
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
+    setIsSidebarOpen(false);
   };
   
   const handleLogout = () => {
@@ -64,10 +65,10 @@ const Sidebar = () => {
         </div>
       )}
       <div
-        className={`fixed top-0 left-0 bg-slate-100 z-50 lg:w-72 lg:flex lg:flex-col lg:static h-screen transition-transform transform ${
+        className={`fixed top-0 left-0 buttom-0 bg-slate-100 z-30 lg:w-72 lg:flex lg:flex-col lg:static h-screen transition-transform transform ${
           isSidebarOpen ? "block" : "hidden"
         }`}
-      >
+       >
         <div className="flex lg:hidden p-4 justify-end">
           <button onClick={() => setIsSidebarOpen(false)}>
             <IoClose className="text-4xl" />

@@ -8,12 +8,16 @@ export const authSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     status: "idle",
-    message: null
+    message: null,
+    user: null,
+    token: null
   },
   reducers: {
     logoutSuccess: (state) => {
       state.isLoggedIn = false;
       state.status = "idle";
+      state.user = null;
+      state.token = null;
     },
     clearMessage: (state) => {
       state.message = null;
@@ -40,11 +44,14 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.isLoggedIn = true;
-        state.message = action.payload;
+        state.message = action.payload.message;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
-        state.isLoggedIn = false,
+        state.isLoggedIn = false;
         state.message = action.payload;
       });
   },
@@ -72,7 +79,8 @@ export const login = createAsyncThunk(
     try {
       const response = await axios.post(`${baseUrl}/auth/login`, values);
       if (response.data.status) {
-        localStorage.token = response.data.token;
+        localStorage.setItem("token", response.data.token);
+        return { token: response.data.token, message: response.data.message, user: response.data.user};
       } else {
         return rejectWithValue(response.data.message);
       }
@@ -82,5 +90,5 @@ export const login = createAsyncThunk(
   }
 );
 
-export const { loginSuccess, logoutSuccess, clearMessage } = authSlice.actions;
+export const { logoutSuccess, clearMessage } = authSlice.actions;
 export default authSlice.reducer;

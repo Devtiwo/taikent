@@ -33,7 +33,7 @@ const Coins = () => {
           </tr>
         </thead>
         <tbody>
-          {loading ? <div>Loading...</div> : coins.map(coin => (
+          {loading ? (<tr><td colSpan="4" className="text-center py-4">Loading...</td></tr>) : coins.map(coin => (
             <tr key={coin.id} className="border">
               <td className="flex gap-3 px-4 py-2">
                 <img className="w-10" src={coin.image}/>
