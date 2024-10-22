@@ -4,6 +4,8 @@ import { baseUrl } from "../Redux/authSlice";
 import { useDispatch } from "react-redux";
 import { updateBalance } from "../Redux/balanceSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { logoutSuccess } from "../Redux/authSlice";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
@@ -13,6 +15,7 @@ const Admin = () => {
   const [profit, setProfit] = useState(0);
   const [withdrawable, setWithdrawable] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -65,14 +68,24 @@ const Admin = () => {
       toast.error("Error updating withdrawbale");
     }
   };
+  
+  const handleLogout = () => {
+    dispatch(logoutSuccess())
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <section>
       <div>
         <div>
           <img src="./images/taikent.png" alt="logo" />
         </div>
-        <div>
+        <div className="flex gap-20 justify-center">
           <h1 className="text-3xl font-bold text-center">Admin Panel</h1>
+          <div>
+          <button type="button" onClick={handleLogout} className="rounded-full bg-black text-white outline-0 font-medium px-10 py-3 hover:bg-fuchsia-700">Logout</button>
+        </div>
         </div>
         <div className="w-2/5 mx-auto mt-5">
           <div className="flex flex-col my-5">
