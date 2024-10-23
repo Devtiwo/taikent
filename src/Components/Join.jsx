@@ -177,7 +177,7 @@ const Join = () => {
             to provide you with a seamless and hassle-free user experience.
           </p>
           <div className="my-12 w-4/5 mx-auto lg:mx-0">
-          <Link to="" className="p-3 bg-black text-white duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Join Now</Link>
+          <Link to="/signup" className="p-3 bg-black text-white duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Join Now</Link>
           </div>
         </div>
       </div>
