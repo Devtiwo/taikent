@@ -124,7 +124,7 @@ const Overview = () => {
   return (
     <section className="px-5 mt-32 h-screen lg:ms-64">
       <div className="flex flex-col lg:flex-row gap-3">
-        <div className="ms-5 lg:ms-10">
+        <div className="lg:ms-10">
           {/* Balance Cards section */}
           <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-11/12">
             {cards.map((card, index) => (

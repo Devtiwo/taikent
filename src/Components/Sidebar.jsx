@@ -65,7 +65,7 @@ const Sidebar = () => {
         </div>
       )}
       <div
-        className={`fixed top-0 left-0 buttom-0 bg-slate-100 z-30 lg:w-72 lg:flex lg:flex-col lg:static h-screen transition-transform transform ${
+        className={`fixed top-0 left-0 bottom-0 bg-slate-100 z-30 lg:w-72 lg:flex lg:flex-col h-full transition-transform transform ${
           isSidebarOpen ? "block" : "hidden"
         }`}
        >
@@ -78,10 +78,10 @@ const Sidebar = () => {
           <div>
             <img src="/images/taikent.png" alt="Logo" className="mx-auto" />
           </div>
-          <div className="p-5 mb-32">
+          <div className="p-5 pb-32">
             <ul>
               {dashLinks.map((dashLink, index) => (
-                <li key={index} className="mb-7">
+                <li key={index} className="pb-7">
                   <Link
                     to={dashLink.to}
                     className={`flex gap-1 text-lg font-medium transition duration-300 ${
@@ -98,7 +98,7 @@ const Sidebar = () => {
               ))}
             </ul>
           </div>
-          <div className="w-4/5 text-center mb-20 lg:mb-16">
+          <div className="w-4/5 text-center pb-20 lg:pb-16">
             <button
               type="button"
               className="w-32 p-2 bg-black hover:bg-fuchsia-700 text-white rounded-full transition ease-in duration-200 font-medium"
