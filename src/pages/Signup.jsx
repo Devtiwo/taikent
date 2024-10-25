@@ -74,7 +74,7 @@ const Signup = () => {
     <section className="h-screen relative z-10">
       <Background />
       <div className="relative h-28 z-20 bg-white">
-        <img src="/images/taikent.png" alt="logo" className="ml-10" />
+        <img src="/images/taikent.png" alt="logo" />
       </div>
       <div className="relative z-50 h-full">
         <div>

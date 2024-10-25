@@ -1,0 +1,28 @@
+.mobilemenu {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 25%;
+  height: 100%;
+  background-color: #f1f5f9;
+  padding: 200px 25px 50px;
+  overflow: none;
+  animation: slideIn 0.7s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .mobilemenu {
+    width: 150px;
+  }
+}
