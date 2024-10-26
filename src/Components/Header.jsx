@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <header>
-      <nav className="h-28 flex justify-between px-10 lg:px-24">
+      <nav className="h-28 flex justify-between pe-5 lg:pe-24">
         <div>
           <img src="/images/taikent.png" alt="logo" />
         </div>
