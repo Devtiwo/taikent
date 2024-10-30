@@ -1,4 +1,5 @@
 import React, { useState} from "react";
+import Footer from "../Components/Footer";
 import { faqData } from "./faqData";
 
 const Faqs = () => {
@@ -19,7 +20,7 @@ const Faqs = () => {
           </h1>
           <p className="font-medium">Having Problems? Feel free to email us </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mb-10">
           <div className="hidden lg:block">
             <img src="/images/faqimg.png" alt="faq image" className="w-2/3 mx-auto mt-40" />
           </div>
@@ -41,6 +42,7 @@ const Faqs = () => {
             </div>
           </div>
         </div>
+        <div><Footer /></div>
       </div>
     </section>
   );
