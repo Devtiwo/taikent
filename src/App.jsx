@@ -13,6 +13,7 @@ import Deposit from "./pages/Deposit";
 import Profile from "./pages/Profile";
 import Support from "./pages/Support";
 import Notfound from "./pages/Notfound";
+import Faqs from "./pages/Faqs";
 import Admin from "./pages/Admin";
 import Forgotpassword from './pages/Forgotpassword';
 import { ToastContainer } from 'react-toastify';
@@ -39,9 +40,10 @@ function App() {
       <Route path="/home" element={<Navigate to="/" />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/faqs" element={<Faqs />} />
       <Route path="/admin" element={isLoggedIn ? <Admin /> : <Navigate to="/login" />} />
       <Route path="/forgot-password" element={<Forgotpassword />} />
-      <Route path="/reset-password/:token" element={<Resetpassword />} />
+      <Route path="/reset-passsword/:token" element={<Resetpassword />} />
       <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login"/>} >
         <Route path="overview" element={<Overview />} />
         <Route index element={<Overview />} />
