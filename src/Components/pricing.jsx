@@ -31,7 +31,7 @@ const pricing = () => {
           {price.map((info, index) => (
             <div key={index} className="border-2 rounded-2xl border-fuchsia-300 w-64 mx-auto p-5">
                 <p className="text-2xl font-medium mt-8 mb-5 text-center">{info.head}</p>
-                <h1 className="mb-5 text-5xl font-bold text-center">{info.cost}</h1>
+                <h1 className="mb-5 text-5xl text-purple-700 font-bold text-center">{info.cost}</h1>
                 <hr />
                 <ul className="mt-16">
                     {info.packageInfo.map((pkg, index) => (
