@@ -173,7 +173,7 @@ const forgotPassword = async (req, res) => {
        </head>
        <body>
        <div class="container">
-          <img src="https://taikentinvestments.com/images/taikent.png" alt="logo" />
+          <img src="https://taikentinvestments.netlify.app/images/taikent.png" alt="logo" />
           <h1>Password Reset Request</h1>
           <p>Hi ${user.fname},</p>
           <p>This email is to confirm that you requested a password reset. To complete the password reset process, click the button below</p>
@@ -244,7 +244,7 @@ const resetPassword = async (req, res) => {
         </head>
         <body>
           <div class="container">
-            <img src="https://taikentinvestments.com/images/taikent.png" alt="logo" />
+            <img src="https://taikentinvestments.netlify.app/images/taikent.png" alt="logo" />
             <p>Hi ${user.fname},</p>
             <p>Your password has been changed successfully. If you didn't make this change, please contact our support immediately.</p>
             <p>Thanks for using our service.</p>
