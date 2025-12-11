@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const baseUrl = "https://taikent.onrender.com";
+export const baseUrl = "http://localhost:5000";
+// https://taikent.onrender.com
 
 export const authSlice = createSlice({
   name: "auth",

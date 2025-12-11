@@ -25,13 +25,13 @@ const Signup = () => {
       }, 1000);
       const redirectTimeout = setTimeout(() => {
         navigate("/login");
-      }, countdown * 1000);
+      },5000);
       return () => {
         clearInterval(timer);
         clearTimeout(redirectTimeout);
       };
     }
-  }, [status, navigate, countdown]);
+  }, [status, navigate]);
   const formik = useFormik({
     initialValues: {
       fname: "",
