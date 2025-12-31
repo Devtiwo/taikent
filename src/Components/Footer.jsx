@@ -21,7 +21,7 @@ const Footer = () => {
                   P.O Box 56784, Los Angeles, California
                 </li>
                 <li className="flex gap-3 font-medium mb-3">
-                  <MdEmail className="mt-0.5 text-fuchsia-500"/> support@taikentinvestments.com
+                  <MdEmail className="mt-0.5 text-fuchsia-500"/> taikentinvestment@financier.com
                 </li>
                 {/* <li className="flex gap-3 font-medium mb-3">
                   <FaPhone className="mt-0.5 text-fuchsia-500"/> 305-465-7089
@@ -49,7 +49,7 @@ const Footer = () => {
       </div>
       <hr />
       <div className="text-center font-semibold py-1">
-      <small>Taikent Investments &copy; 2024 - Transforming Bitcoin into Prosperity!</small>
+      <small>Taikent Investments &copy; 2026 - Transforming Bitcoin into Prosperity!</small>
      </div>
      </div>
     </footer>

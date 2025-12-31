@@ -62,7 +62,7 @@ const Login = () => {
       <Background />
       {loading && <Preloader />}
       <div className="h-28 relative z-20 bg-white">
-        <img src="/images/taikent.png" alt="logo" />
+        <Link to="/"><img src="/images/taikent.png" alt="logo" /></Link>
       </div>
       <div className="relative z-30 h-full">
         <div>

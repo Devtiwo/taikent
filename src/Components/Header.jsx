@@ -29,7 +29,7 @@ const Header = () => {
     <header>
       <nav className="h-28 flex justify-between pe-5 lg:pe-24">
         <div>
-          <img src="/images/taikent.png" alt="logo" />
+          <Link to="/"><img src="/images/taikent.png" alt="logo" /></Link>
         </div>
         <div className="my-auto"> 
           <button 
