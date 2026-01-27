@@ -30,26 +30,23 @@ const Plans = () => {
       price: "$500",
       benefit: [
         "Monthly withdrawals",
-        "15% profit per week",
         "Email $ live chat Support",
       ],
     },
     {
       name: "Basic",
-      price: "$1000",
+      price: "$1,000",
       benefit: [
         "Monthly withdrawals",
-        "25% profit per week",
         "Email & live chat support",
         "Real-time market price",
       ],
     },
     {
       name: "Premium",
-      price: "$2500",
+      price: "$2,500",
       benefit: [
         "Weekly & monthly withdrawals",
-        "40% profit per week",
         "Email & live chat support",
         "Weekly market insights",
         "Real-time market price",
@@ -57,10 +54,9 @@ const Plans = () => {
     },
     {
       name: "Platinum",
-      price: "$5000",
+      price: "$5,000",
       benefit: [
         "Weekly & monthly withdrawals",
-        "60% profit per week",
         "Email & live chat support",
         "Weekly market insights",
         "Real-time market price",

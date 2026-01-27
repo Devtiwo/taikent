@@ -30,9 +30,9 @@ export const balanceSlice = createSlice({
     .addCase(updateBalance.fulfilled, (state, action) => { 
        state.status = "succeeded";
        const userData = action.payload?.user || {};
-       const { userId, plan, balance, profit, withdrawBal } = userData;
+       const { userId, plan, balance, profit } = userData;
        if (userId) {
-        state.balances[userId] = { plan, balance, profit, withdrawBal };
+        state.balances[userId] = { plan, balance, profit };
       } else {
         console.error("No userId found in payload!");
       }

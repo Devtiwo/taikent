@@ -6,22 +6,22 @@ const pricing = () => {
         {
           head: "Starter",
           cost: "$500",
-          packageInfo: ["monthly withdrawals", "15% profit per week", "Email $ live chat Support"]
+          packageInfo: ["monthly withdrawals", "Email & live chat Support"]
         },
         {
           head: "Basic",
           cost: "$1000",
-          packageInfo: ["monthly withdrawals", "25% profit per week", "Email & live chat support", "Real-time market price"]
+          packageInfo: ["monthly withdrawals", "Email & live chat support", "Real-time market price"]
         },
         {
           head: "Premium",
           cost: "$2500",
-          packageInfo: ["Weekly & monthly withdrawals", "40% profit per week", "Email & live chat support", "Weekly market insights", "Real-time market price"]
+          packageInfo: ["monthly withdrawals", "Email & live chat support", "Weekly market insights", "Real-time market price"]
         },
         {
           head: "Platinum",
           cost: "$5000",
-          packageInfo: ["Weekly & monthly withdrawals", "60% profit per week", "Email & live chat support", "Weekly market insighs", "Real-time market price", "Direct access to experts", "Detailed performance reporting", "Enhanced security & compliance"]
+          packageInfo: ["monthly withdrawals", "Email & live chat support", "Weekly market insighs", "Real-time market price", "Direct access to experts", "Detailed performance reports", "Enhanced security"]
         }
       ];
   return (
