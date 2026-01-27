@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaWallet } from "react-icons/fa6";
 import { GiCash } from "react-icons/gi";
-import { BiMoneyWithdraw } from "react-icons/bi";
 import BtcChart from "../Components/BtcChart";
 import { Link } from "react-router-dom";
 import Coins from "../Components/Coins";
@@ -22,10 +21,9 @@ const Overview = () => {
   const userBalance = balances[userId] || {
     balance: 0,
     plan: "None",
-    profit: 0,
-    withdrawBal: 0,
+    profit: 0
   };
-  const { balance, plan, profit, withdrawBal } = userBalance;
+  const { balance, plan, profit } = userBalance;
 
   useEffect(() => {
     const fetchBtcRate = async () => {
@@ -48,46 +46,33 @@ const Overview = () => {
     }
   }, [dispatch, userId]);
 
-  const formatUsd = (btcValue) => {
-    if (btcToUsdRate === null) return "Loading...";
-    const usdValue = btcValue * btcToUsdRate;
-    return `$${usdValue.toFixed(2)}`;
-  };
+  // const formatUsd = (btcValue) => {
+  //   if (btcToUsdRate === null) return "Loading...";
+  //   const usdValue = btcValue * btcToUsdRate;
+  //   return `$${usdValue.toFixed(2)}`;
+  // };
 
   const cards = [
     {
-      wrapper: "p-3 bg-lime-100 w-full rounded-lg",
-      icon: <FaWallet className="text-3xl mx-auto text-lime-700" />,
-      text: "Balance",
-      balDesc: "Btc",
-      balance: balance.toFixed(8),
-      usdEquivalent: formatUsd(balance),
+      wrapper: "px-5 py-10 h-48 bg-gray-900 w-full rounded-lg",
+      icon: <FaWallet className="text-3xl mx-auto text-gray-900" />,
+      text: "Portfolio",
+      usdEquivalent: `$${balance}`,
     },
     {
-      wrapper: "p-3 bg-sky-100 w-full rounded-lg",
-      icon: <GiCash className="text-3xl mx-auto text-sky-700" />,
-      text: `Plan: ${plan}`,
-      balDesc: "Profit",
-      balance: profit.toFixed(8),
-      usdEquivalent: formatUsd(profit),
-    },
-    {
-      wrapper: "p-3 bg-orange-100 w-full rounded-lg",
-      icon: <BiMoneyWithdraw className="text-3xl mx-auto text-orange-700" />,
-      text: "Withdrawable",
-      balDesc: "Balance",
-      balance: withdrawBal.toFixed(8),
-      usdEquivalent: formatUsd(withdrawBal),
+      wrapper: "px-5 py-10 bg-gray-900 w-full rounded-lg",
+      icon: <GiCash className="text-3xl mx-auto text-gray-900" />,
+      text: "Profit",
+      balDesc: `Plan: ${plan}`,
+      usdEquivalent: `$${profit}`,
     },
   ];
 
   const formik = useFormik({
     initialValues: {
-      accName: "",
-      amount: "",
+      amount: ""
     },
     validationSchema: yup.object({
-      accName: yup.string().required("select the account to withdraw from"),
       amount: yup
         .number()
         .required("Amount to withdraw is required")
@@ -101,7 +86,7 @@ const Overview = () => {
         .test(
           "sufficient-funds",
           "Insufficient funds",
-          (value) => value <= withdrawBal
+          (value) => value <= balance
         ),
     }),
     onSubmit: async (values, { resetForm }) => {
@@ -129,20 +114,17 @@ const Overview = () => {
           <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-11/12">
             {cards.map((card, index) => (
               <div key={index} className={card.wrapper}>
-                <div className="flex mb-5 gap-4">
+                <div className="flex mb-5 gap-4 ">
                   <div className="rounded-full bg-white w-12 h-12 content-center">
                     {card.icon}
                   </div>
-                  <p className="text-base font-medium text-slate-500 mt-2">
+                  <p className="text-lg font-medium text-white mt-2">
                     {card.text}
                   </p>
                 </div>
-                <div className="bg-white px-3 rounded-full py-1">
-                  <p className="font-medium mx-auto content-center text-xs">
-                    {card.balDesc}:
-                    <span className="ms-3 font-semibold text-sm content-center">
-                      {card.balance} ⇔ {card.usdEquivalent}
-                    </span>
+                <div className="text-white px-3 rounded-full ">
+                  <p className="font-medium text-4xl ms-10">
+                    {card.usdEquivalent}
                   </p>
                 </div>
               </div>
@@ -164,27 +146,6 @@ const Overview = () => {
                   autoComplete="off"
                   onSubmit={formik.handleSubmit}
                 >
-                  <div className="bg-fuchsia-300 py-5 px-5 rounded-lg">
-                    <h2 className="text-2xl font-semibold">Select Account</h2>
-                    <p className="font-medium text-sm mb-5">
-                      Select the account you will like to withdraw from
-                    </p>
-                    <div>
-                      <select
-                        className="outline-0 w-full p-2 font-medium rounded-md text-sm text-gray-700 placeholder-text-sm"
-                        name="accName"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.accName}
-                      >
-                        <option value="">Select Account for Withdrawal</option>
-                        <option value={plan}>{plan}</option>
-                      </select>
-                      <small className="text-rose-700 font-medium ml-1">
-                        {formik.touched.accName && formik.errors.accName}
-                      </small>
-                    </div>
-                  </div>
                   <div className="mt-4 mb-7 ">
                     <label
                       htmlFor="amount"

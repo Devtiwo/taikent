@@ -24,7 +24,6 @@ const getDashboard = async (req, res) => {
           balance: user.balance,
           plan: user.plan,
           profit: user.profit,
-          withdrawBal: user.withdrawBal,
           roles: user.roles
         },
       });
@@ -112,7 +111,7 @@ const getAllUsers = async (req, res) => {
 
 const updateBalances = async(req, res) => {
   const userId = req.params.id;
-  const { plan, balance, profit, withdrawBal } = req.body;
+  const { plan, balance, profit } = req.body;
   try {
     const user = await userModel.findById(userId);
     if (!user) {
@@ -136,8 +135,7 @@ const updateBalances = async(req, res) => {
         userId: user._id,
         plan: user.plan,
         balance: user.balance,
-        profit: user.profit,
-        withdrawBal: user.withdrawBal
+        profit: user.profit
       }
     });
   } catch (err) {
