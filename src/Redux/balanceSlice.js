@@ -9,11 +9,11 @@ export const updateBalance = createAsyncThunk(
       const response = await axios.patch(`${baseUrl}/user/${userId}/balances`, updates);
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response.data.message || "Error updating user");
+      return rejectWithValue(err.response?.data?.message || "Error updating user");
     }
   }
 );
-
+ 
 export const balanceSlice = createSlice({
   name: "balance",
   initialState: {
@@ -28,10 +28,10 @@ export const balanceSlice = createSlice({
       state.status = "loading";
     })
     .addCase(updateBalance.fulfilled, (state, action) => { 
-       state.status = "succeeded";
-       const userData = action.payload?.user || {};
-       const { userId, plan, balance, profit } = userData;
-       if (userId) {
+      state.status = "succeeded";
+      const userData = action.payload?.user || action.payload || {};
+      const { userId, plan, balance, profit } = userData;
+      if (userId) {
         state.balances[userId] = { plan, balance, profit };
       } else {
         console.error("No userId found in payload!");

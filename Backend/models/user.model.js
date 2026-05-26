@@ -18,7 +18,8 @@ const userSchema = mongoose.Schema({
   payments: [{
     planName: { type: String, required: true },
     amount: { type: Number, required: true },
-    btcEquivalent: { type: Number, required: true },
+    cryptoAmount: { type: Number, required: true },
+    paymentMethod: { type: String, enum: ["BTC", "USDT"], required: true },
     date: { type: Date, default: Date.now }
   }],
   roles: {

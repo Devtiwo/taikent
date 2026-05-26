@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { baseUrl } from "../Redux/authSlice";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Forgotpassword = () => {
   const formik = useFormik({
@@ -29,7 +30,7 @@ const Forgotpassword = () => {
     <section className="h-screen px-5 bg-slate-100">
       <div className="h-full">
         <div>
-          <img src="/images/taikent.png" alt="logo" className="lg:ml-5" />
+          <Link to="/"><img src="/images/taikent.png" alt="logo" className="lg:ml-5" /></Link>
         </div>
         <div>
             <h1 className="text-center text-5xl font-semibold mb-5">Reset Password</h1>
@@ -47,7 +48,7 @@ const Forgotpassword = () => {
                     id="email" 
                     name="email"
                     placeholder="Email address"
-                    className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                    className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}

@@ -108,7 +108,7 @@ const Signup = () => {
                   id="fname"
                   name="fname"
                   placeholder="First Name"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.fname}
@@ -126,7 +126,7 @@ const Signup = () => {
                   id="lname"
                   name="lname"
                   placeholder="Last Name"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.lname}
@@ -146,7 +146,7 @@ const Signup = () => {
                   id="email"
                   name="email"
                   placeholder="Email Address"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
@@ -164,7 +164,7 @@ const Signup = () => {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
@@ -184,7 +184,7 @@ const Signup = () => {
                   id="phone"
                   name="phone"
                   placeholder="Phone Number"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
@@ -202,7 +202,7 @@ const Signup = () => {
                   id="address"
                   name="address"
                   placeholder="Address"
-                  className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                  className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.address}
@@ -218,7 +218,7 @@ const Signup = () => {
                 Country
               </label>
               <select
-                className="p-3 border-2 border-fuchsia-300 outline-0 rounded-lg"
+                className="p-3 border-2 border-fuchsia-300 outline-none rounded-lg"
                 id="country"
                 name="country"
                 onChange={formik.handleChange}

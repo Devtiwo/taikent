@@ -52,7 +52,7 @@ const Header = () => {
           investments and stay ahead in the digital economy. Start your journey
           today and transform your financial future.
         </p>
-        <Link to="/signup" className="w-32 p-3 bg-black text-white transition duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Start Investing</Link>
+        <Link to="/signup" className="w-32 p-3 bg-black text-white transition duration-300 ease-in font-semibold hover:bg-white hover:border-2 hover:border-black hover:text-black">Create an Account</Link>
       </section>
     </header>
   );

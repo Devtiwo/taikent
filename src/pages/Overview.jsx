@@ -191,7 +191,7 @@ const Overview = () => {
               waiting for, secure your financial freedom with us today
             </h2>
             <Link
-              to="/dashboard/plans"
+              to="/dashboard/deposit"
               className="py-3 px-10 text-white bg-black rounded-lg font-medium transition ease-in duration-200 hover:bg-fuchsia-700"
             >
               Enroll Now
