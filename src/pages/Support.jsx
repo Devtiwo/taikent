@@ -70,7 +70,7 @@ const Support = () => {
                 type="text"
                 name="fname"
                 placeholder="First Name"
-                className="w-full py-2 px-4 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                className="w-full py-2 px-4 outline-none border-2 border-fuchsia-300 rounded-lg"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.fname}
@@ -84,7 +84,7 @@ const Support = () => {
                 type="text"
                 name="lname"
                 placeholder="Last Name"
-                className="w-full py-2 px-4 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                className="w-full py-2 px-4 outline-none border-2 border-fuchsia-300 rounded-lg"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.lname}
@@ -99,7 +99,7 @@ const Support = () => {
               type="email"
               name="email"
               placeholder="Email"
-              className="w-full py-2 px-4 outline-0 border-2 border-fuchsia-300 rounded-lg"
+              className="w-full py-2 px-4 outline-none border-2 border-fuchsia-300 rounded-lg"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
@@ -111,7 +111,7 @@ const Support = () => {
           <div className="mb-9">
             <textarea
               placeholder="Tell us what we can help you with"
-              className="w-full h-52 py-2 px-4 outline-0 border-2 border-fuchsia-300 rounded-lg"
+              className="w-full h-52 py-2 px-4 outline-none border-2 border-fuchsia-300 rounded-lg"
               name="message"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

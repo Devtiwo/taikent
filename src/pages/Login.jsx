@@ -92,7 +92,7 @@ const Login = () => {
                 id="email"
                 name="email"
                 placeholder="Email Address"
-                className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                className="p-3 border-2 border-fuchsia-300 outline-none rounded-lg"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
@@ -109,7 +109,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 placeholder="Password"
-                className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}

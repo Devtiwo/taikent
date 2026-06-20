@@ -55,7 +55,7 @@ const Resetpassword = () => {
                     id="password" 
                     name="password"
                     placeholder="Password"
-                    className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                    className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
@@ -71,7 +71,7 @@ const Resetpassword = () => {
                     id="confirmPass" 
                     name="confirmPass"
                     placeholder="Confirm Password"
-                    className="p-3 outline-0 border-2 border-fuchsia-300 rounded-lg"
+                    className="p-3 outline-none border-2 border-fuchsia-300 rounded-lg"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.confirmPass}

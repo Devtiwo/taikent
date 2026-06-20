@@ -49,7 +49,7 @@ const Footer = () => {
       </div>
       <hr />
       <div className="text-center font-semibold py-1">
-      <small>Taikent Investments &copy; 2026 - Transforming Bitcoin into Prosperity!</small>
+      <small>Taikent Investments &copy; 2026 - Investing with clarity and confidence.</small>
      </div>
      </div>
     </footer>

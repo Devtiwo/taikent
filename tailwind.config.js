@@ -13,6 +13,9 @@ export default {
           "100%": { transform: "scale(1)" },
         },
       },
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
+      },
     },
   },
   plugins: [],

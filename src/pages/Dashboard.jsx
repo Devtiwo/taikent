@@ -9,7 +9,7 @@ import Preloader from "../Components/Preloader";
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, status, error } = useSelector((state) => state.user);
+  const { user, status } = useSelector((state) => state.user);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,12 +21,13 @@ const Dashboard = () => {
   }, [dispatch, navigate]);
 
   useEffect(() => {
-    if (status === "failed" || error) {
+    if (status === "failed") {
       localStorage.removeItem("token");
       navigate("/login", { replace: true });
     }
-  }, [navigate, status, error]);
+  }, [navigate, status]);
 
+  
   return (
     <section className="flex gap-14">
       <Sidebar />

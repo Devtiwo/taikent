@@ -87,11 +87,11 @@ const updateProfile = async (req, res) => {
 };
 
 const recordPayment =  async (req, res) => {
-  const { userId, planName, amount, btcEquivalent } = req.body;
+  const {userId, planName, amount, cryptoAmount, paymentMethod } = req.body;
   try {
-    const paymentInfo = { planName, amount, btcEquivalent };
+    const paymentInfo = { planName, amount, cryptoAmount, paymentMethod };
     await userModel.findByIdAndUpdate(userId, { $push: { payments: paymentInfo } });
-    return res.status(201).send({ status: true, message: "Payment processed successfully!" });
+    return res.status(201).send({ status: true, message: "Payment made successfully!" });
   } catch(err) {
     res.status(500).send({ status: false, message: "Error! Pls try again." });
   }
@@ -125,9 +125,6 @@ const updateBalances = async(req, res) => {
     }
     if (profit !== undefined) {
       user.profit = profit;
-    }
-    if (withdrawBal !== undefined) {
-      user.withdrawBal = withdrawBal;
     }
     await user.save();
     return res.status(200).send({ status: true, message: "balances updated successfully",
