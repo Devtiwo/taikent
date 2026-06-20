@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FaWallet } from "react-icons/fa6";
 import { GiCash } from "react-icons/gi";
 import BtcChart from "../Components/BtcChart";
@@ -11,12 +11,13 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser } from "../Redux/userSlice";
 import { updateBalance } from "../Redux/balanceSlice";
+import useBtcPrice from "../hooks/useBtcPrice";
 
 const Overview = () => {
-  const [btcToUsdRate, setBtcToUsdRate] = useState(null);
   const userId = useSelector((state) => state.user.user?.userId);
   const balances = useSelector((state) => state.balance.balances) || {};
   const dispatch = useDispatch();
+  const btcPrice = useBtcPrice();
 
   const userBalance = balances[userId] || {
     balance: 0,
@@ -26,45 +27,27 @@ const Overview = () => {
   const { balance, plan, profit } = userBalance;
 
   useEffect(() => {
-    const fetchBtcRate = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
-        );
-        setBtcToUsdRate(response.data.bitcoin.usd);
-      } catch (error) {
-        console.error("Error fetching BTC to USD rate:", error);
-      }
-    };
-    fetchBtcRate();
-  }, []);
-
-  useEffect(() => {
     if (userId) {
       dispatch(fetchUser(userId));
       dispatch(updateBalance({ userId }));
     }
   }, [dispatch, userId]);
 
-  // const formatUsd = (btcValue) => {
-  //   if (btcToUsdRate === null) return "Loading...";
-  //   const usdValue = btcValue * btcToUsdRate;
-  //   return `$${usdValue.toFixed(2)}`;
-  // };
-
   const cards = [
     {
-      wrapper: "px-5 py-10 h-48 bg-gray-900 w-full rounded-lg",
-      icon: <FaWallet className="text-3xl mx-auto text-gray-900" />,
-      text: "Portfolio",
-      usdEquivalent: `$${balance}`,
+      wrapper: "bg-gradient-to-br from-cyan-400 to-green-400",
+      icon: <FaWallet className="text-3xl mx-auto text-white" />,
+      text: "Balance",
+      title: "Total Balance",
+      amount: `${balance}`,
     },
     {
-      wrapper: "px-5 py-10 bg-gray-900 w-full rounded-lg",
-      icon: <GiCash className="text-3xl mx-auto text-gray-900" />,
-      text: "Profit",
-      balDesc: `Plan: ${plan}`,
-      usdEquivalent: `$${profit}`,
+      wrapper: "bg-gradient-to-br from-blue-400 to-purple-500",
+      icon: <GiCash className="text-3xl mx-auto text-white" />,
+      text: "Plan:",
+      plan: `${plan}`,
+      title: "Total Profit",
+      amount: `${profit}`,
     },
   ];
 
@@ -110,25 +93,40 @@ const Overview = () => {
     <section className="px-5 mt-32 h-screen lg:ms-64">
       <div className="flex flex-col lg:flex-row gap-3">
         <div className="lg:ms-10">
+
           {/* Balance Cards section */}
-          <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-11/12">
-            {cards.map((card, index) => (
-              <div key={index} className={card.wrapper}>
-                <div className="flex mb-5 gap-4 ">
-                  <div className="rounded-full bg-white w-12 h-12 content-center">
+          <div className="flex flex-col lg:flex-row gap-5 w-full lg:w-11/12 font-montserrat">
+            {cards.map((card, index) => {
+              const btcAmount = btcPrice ? (card.amount / btcPrice).toFixed(8) : "Loading...";
+
+              return (
+              <div key={index} className={`${card.wrapper} p-8 flex flex-col w-full rounded-3xl`}>
+                {/* Top */}
+                <div className="flex mb-5 gap-4 items-center">
+                  <div className="rounded-full bg-black/40 w-14 h-14 content-center">
                     {card.icon}
                   </div>
-                  <p className="text-lg font-medium text-white mt-2">
+
+                  <p className="text-xl font-medium">
                     {card.text}
                   </p>
+
+                  {card.plan && (
+                    <p className="text-2xl font-medium">{card.plan}</p>
+                  )}
                 </div>
-                <div className="text-white px-3 rounded-full ">
-                  <p className="font-medium text-4xl ms-10">
-                    {card.usdEquivalent}
+                {/* Bottom */}
+                <div className="mt-8">
+                  <p className="text-xl">
+                    {card.title}
                   </p>
+                  <h2 className="font-semibold text-3xl my-3">
+                    ${card.amount.toLocaleString()} USD
+                  </h2>
+                  <p className="text-lg font-medium">{btcAmount} BTC</p>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
           {/* Request Withdrawal section*/}
           <div className="mt-10 w-full lg:w-11/12 bg-slate-100 p-3 rounded-lg">

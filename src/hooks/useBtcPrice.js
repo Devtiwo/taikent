@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const useBtcPrice = () => {
-  const [btcPrice, setBtcPrice] = useState(0);
+  const [btcPrice, setBtcPrice] = useState(null);
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
